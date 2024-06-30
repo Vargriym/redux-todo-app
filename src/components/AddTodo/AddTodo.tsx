@@ -3,11 +3,17 @@ import { useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
 import { addTodo } from "../../redux/todo";
 import { validateTask } from "../../validation";
+import { useTranslation } from 'react-i18next';
+
 
 const AddTodo = () => {
   const dispatch = useDispatch();
   const [task, setTask] = useState("");
   const [error, setError] = useState("");
+  const { t, i18n } = useTranslation();
+  const direction = i18n.dir(i18n.language);
+
+
 
   const handleAddTaskSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -39,11 +45,12 @@ const AddTodo = () => {
           value={task}
           type="text"
           className="form__input"
-          placeholder="Add todo..."
+          placeholder={t('Add_A_Task')}
+          dir={direction}
         />
         {error && <p className="form__error-text">{error}</p>}
       </div>
-      <button className="btn form__btn">Add Todo</button>
+      <button className="btn form__btn">{t('Add')}</button>
     </form>
   );
 };

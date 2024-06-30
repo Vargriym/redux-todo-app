@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { editTodo as updateTodo } from "../../redux/todo";
 import { TodoInterface } from "../../App";
 import { validateTask } from '../../validation'
+import { useTranslation } from 'react-i18next';
 
 type EditTodoProps = {
   editTodo: TodoInterface;
@@ -13,6 +14,8 @@ const EditTodo = ({ editTodo, setEditTodo }: EditTodoProps) => {
   const dispatch = useDispatch();
   const [task, setTask] = useState("");
   const [error, setError] = useState("");
+  const { t, i18n } = useTranslation();
+  const direction = i18n.dir(i18n.language);
 
   useEffect(() => {
     setTask(editTodo.task);
@@ -50,11 +53,12 @@ const EditTodo = ({ editTodo, setEditTodo }: EditTodoProps) => {
           value={task}
           type="text"
           className="form__input"
-          placeholder="Edit todo..."
+          placeholder={t('Edit')}
+          dir={direction}
         />
         {error && <p className="form__error-text">{error}</p>}
       </div>
-      <button className="btn form__btn">Edit Todo</button>
+      <button className="btn form__btn">{t('Edit_Todo')}</button>
     </form>
   );
 };
